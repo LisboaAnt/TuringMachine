@@ -108,8 +108,72 @@ class TuringVisualGUI:
         self.selected_index = None
         
         # Criar estados e transições iniciais
-        self.create_default_machine()
+        self.create_exemplo_1_machine()
         self.update_transitions_list()
+
+    def create_exemplo_1_machine(self):
+        # Limpar estados existentes
+        # Numero binario multiplo de 5
+        self.states = {}
+        self.transitions = []
+
+        # Criar estados padrão
+        state_names = ['q0', 'q1', 'q2', 'q3', 'q4', 'qf']
+        for name in state_names:
+            self.states[name] = State(name)
+
+        # Definir estado final
+        self.states['qf'].setFinal()
+
+        # Adicionar transições padrão
+        self.add_transition_data('q0', '0', 'q0', '0', 'D')
+        self.add_transition_data('q0', '1', 'q1', '1', 'D')
+        self.add_transition_data('q0', None, 'qf', None, 'E')
+
+        self.add_transition_data('q1', '0', 'q2', '0', 'D')
+        self.add_transition_data('q1', '1', 'q3', '1', 'D')
+
+        self.add_transition_data('q2', '0', 'q4', '0', 'D')
+        self.add_transition_data('q2', '1', 'q0', '1', 'D')
+
+        self.add_transition_data('q3', '0', 'q1', '0', 'D')
+        self.add_transition_data('q3', '1', 'q2', '1', 'D')
+
+        self.add_transition_data('q4', '0', 'q3', '0', 'D')
+        self.add_transition_data('q4', '1', 'q4', '1', 'D')
+
+    def create_exemplo_2_machine(self):
+        # Limpar estados existentes
+        # {a*i b*j c*k | onde i,j,k > 0 | j < k}
+        self.states = {}
+        self.transitions = []
+
+        # Criar estados padrão
+        for name in ['q0', 'q1', 'q2', 'q3', 'q4', 'qf']:
+            self.states[name] = State(name)
+
+        # Definir estado final
+        self.states['qf'].setFinal()
+
+        # Adicionar transições padrão
+        self.add_transition_data('q0', 'a', 'q0', 'A', 'D')
+        self.add_transition_data('q0', 'b', 'q1', 'B', 'D')  
+        self.add_transition_data('q0', 'c', 'q4', 'C', 'D')
+
+        self.add_transition_data('q1', 'b', 'q1', 'b', 'D')  
+        self.add_transition_data('q1', 'C', 'q1', 'C', 'D') 
+        self.add_transition_data('q1', 'c', 'q2', 'C', 'E')  
+
+        self.add_transition_data('q2', 'b', 'q2', 'b', 'E')
+        self.add_transition_data('q2', 'C', 'q2', 'C', 'E')
+        self.add_transition_data('q2', 'B', 'q3', 'B', 'D')
+
+        self.add_transition_data('q3', 'b', 'q1', 'B', 'D')
+        self.add_transition_data('q3', 'C', 'q3', 'C', 'D')
+        self.add_transition_data('q3', 'c', 'q4', 'C', 'D')
+
+        self.add_transition_data('q4', 'c', 'q4', 'C', 'D')
+        self.add_transition_data('q4', None, 'qf', None, 'E')
 
     def create_default_machine(self):
         # Limpar estados existentes

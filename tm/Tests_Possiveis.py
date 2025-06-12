@@ -37,6 +37,8 @@ def teste_anbn(): # Livre de contexto
     mt = Machine(q0, w, 20)
     mt.run()
 
+
+
 def teste_y_x(): # Regular
     print("{ w in Σ^* | w é um número binario multiplo de 3}")
     q0 = State('q0')
